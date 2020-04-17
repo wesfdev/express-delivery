@@ -1,0 +1,20 @@
+{props.places.map(
+    ({ place_id, formatted_address, geometry: { location } }) => (
+      <span key={place_id}>
+        {formatted_address}
+       { /*{" en "} ({location.lat()}, {location.lng()}) */}
+
+        <GoogleMap defaultZoom={16} defaultCenter={{ lat: location.lat(), lng: location.lng() }} onClick={props.handleMarkerClick}>
+          <Marker position={{ lat: location.lat(), lng: location.lng() }} />
+        </GoogleMap>           
+
+      </span>
+    )
+  )}
+
+
+<GoogleMap defaultZoom={16} defaultCenter={{ lat: location.lat(), lng: location.lng() }} editable={true}>
+<Marker position={{ lat: location.lat(), lng: location.lng() }} onClick={props.handleMarkerClick} />
+</GoogleMap>  
+
+

@@ -1,0 +1,29 @@
+{
+  "name": "07-restserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "8.9.4"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^3.0.5",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.4.19",
+    "mongoose-unique-validator": "^2.0.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
+    "underscore": "^1.9.1",
+    "uuid": "^7.0.2"
+  }
+}

@@ -1,0 +1,41 @@
+body  {
+    background-image: url("../images/bg.png");
+    background-color: white;
+    background-position: center; /* Center the image */
+    background-size: cover; /* Resize the background image to cover the entire container */   
+    color: white; 
+    background-size: 100% auto;
+  }
+
+.Home {
+    padding: 20px;
+}
+
+.Home__img {
+    width: 100%;
+}
+
+.buttons{
+    padding: 20px;
+}
+
+.description{
+    color: white;
+    padding: 30px;
+}
+
+.Home_logos {
+    width: 30px;
+    height: 25px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+.detail{
+    color: white;
+    padding: 20px;
+    padding-bottom: -1px;
+}

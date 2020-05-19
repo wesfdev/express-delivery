@@ -7,6 +7,9 @@ The goal is to offer alternatives to some of the challenges posed by the coronav
 ## Application Features
 Following the COVID-19 outbreak, local small businesses and suppliers are going through a very difficult situation, since many of them need to continue working and do not have any means or platform to make themselves known to differences from large corporations. This web app aims to make these small businesses known, allowing them to communicate with other people. And in a way that people can keep shopping at their trusted neighborhood stores.
 
+<img width="1377" alt="image" src="https://user-images.githubusercontent.com/8930609/82331094-e42a0e80-99a0-11ea-9e42-91427c42dd47.png">
+
+
 
 ## Tools:
 + [JavaScript](https://developer.mozilla.org/es/docs/Learn/JavaScript/First_steps/Qu%C3%A9_es_JavaScript)

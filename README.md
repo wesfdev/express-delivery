@@ -17,7 +17,7 @@ Following the COVID-19 outbreak, local small businesses and suppliers are going 
 + [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial)
 + [IDE (VSCode)](https://code.visualstudio.com/docs)
 + [ReactJS](https://es.reactjs.org/)
-+ [Angular](hhttps://angular.io/)
++ [Angular](https://angular.io/)
 + [MYSQL](https://www.mysql.com/)
 
 # Run 

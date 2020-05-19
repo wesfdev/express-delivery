@@ -23,6 +23,18 @@ let bool = (value) =>{
     }
 }
 
+let getShops = async () => {
+    let db = connection.promise()
+    //let sql = `${base_query}`;
+    let sql = `
+        select s.*, vl.description as image from delivery.shop s 
+        inner join delivery.value_list vl on vl.dbid = s.category;
+    `;
+
+    let [rows]  = await db.execute(sql);
+    return rows;
+}
+
 let getShop = async (dbid) => {
     console.log('getShopByDbid', dbid)
     let shops = await getShopByDbid(dbid);
@@ -50,7 +62,7 @@ let getPaymentMethodsByShop = async (dbid) => {
     let sql = `
             select pm.dbid, pm.shop, vl.discriminator, vl.name, vl.description from delivery.payment_method pm
             inner join delivery.value_list vl on vl.dbid = pm.payment
-            where pm.dbid = ? `;
+            where pm.shop = ? `;
     let [ rows ]  = await db.execute(sql, [ dbid ]);
     return rows;
 }
@@ -64,24 +76,34 @@ let getImagesByShop = async (dbid) => {
 let getShopsByCategory = async (category) => {
     let db = connection.promise()
     let sql = `
-            select s.*, si.image, si.mime_type as mimeType, si.name as imageName, si.size_image as sizeImage  from delivery.shop s 
-            left join delivery.shop_image si on si.shop = s.dbid
-            where s.category = ?
-            and si.principal = ?`;
+            select s.*, vl.description as image from delivery.shop s 
+            inner join delivery.value_list vl on vl.dbid = s.category
+            where s.category = ?`;
 
-    let [rows]  = await db.execute(sql, [ category, 1 ]);
+    let [rows]  = await db.execute(sql, [ category ]);
     return rows;       
 }
 
 let getShopsByName = async (name) => {
     let db = connection.promise();
-    let [rows]  = await db.execute(`${base_query} where name LIKE CONCAT('%', ?,  '%')`, [ name ]);
+    let sql = `
+            select s.*, vl.description as image from delivery.shop s 
+            inner join delivery.value_list vl on vl.dbid = s.category
+            where s.name LIKE CONCAT('%', ?,  '%')
+    `;
+    let [rows]  = await db.execute(sql, [ name ]);
     return rows;        
 }
 
 let searchShop = async (value) => {
     let db = connection.promise();
-    let [rows]  = await db.execute(`${base_query} where name LIKE CONCAT('%', ?,  '%') OR description LIKE CONCAT('%', ?,  '%')`, [ value, value ]);
+    let sql = `
+            select s.*, vl.description as image from delivery.shop s 
+            inner join delivery.value_list vl on vl.dbid = s.category
+            where s.name LIKE CONCAT('%', ?,  '%') OR s.description LIKE CONCAT('%', ?,  '%')
+    `;
+
+    let [rows]  = await db.execute(sql, [ value, value ]);
     return rows;       
 }
 
@@ -126,7 +148,7 @@ let saveMethods = async(shop, methods)=>{
     let sql = `INSERT INTO delivery.payment_method(payment, shop)VALUES(?, ?);`;
 
     for(let i = 0; i < methods.length; i++){
-        let method = JSON.parse(methods[i]);
+        let method = methods[i];//JSON.parse(methods[i]);
         await insert(sql, [ method.dbid, shop ]);
     }
     
@@ -136,12 +158,35 @@ let updateShop = async (request) => {
     console.log('updateShop',request)
 }
 
+let searchJob = async () => {
+    let db = connection.promise()
+    let sql = `select * from delivery.job`;
+
+    let [rows]  = await db.execute(sql);
+    return rows;    
+
+}
+
+let createJob = async (req) => {
+    let sql = `
+            INSERT INTO delivery.job
+            (name, age, code, whatsapp, description, car, motorcycle, other, observations)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
+    `;
+
+    await insert(sql, [ req.name, req.age, req.code, req.whatsapp, req.description, bool(req.car), bool(req.motorcycle), bool(req.other), req.observations]);
+
+}
+
 
 module.exports = {
+    getShops,
     getShop,
     getShopsByCategory,
     getShopsByName,
     searchShop,
     createShop,
-    updateShop
+    updateShop,
+    searchJob,
+    createJob
 }

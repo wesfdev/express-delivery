@@ -5,13 +5,27 @@ const resource = 'delivery'
 const path = `/${version}/${resource}`
 
 const {
+    getShops,
     getShop,
     getShopsByCategory,
     getShopsByName,
     searchShop,
     createShop,
-    updateShop
+    updateShop,
+    searchJob,
+    createJob
 } = require('../services/deliveryService')
+
+app.get(`${path}`, async function (req, res) {
+    let response = await getShops();
+    
+    return res.status(200).json({
+        message: "Get shops",
+        body: response
+    });
+
+});
+
 
 app.get(`${path}/:dbid`, async function (req, res) {
     let dbid = req.params.dbid;
@@ -55,6 +69,25 @@ app.get(`${path}/shop/search`, async function (req, res) {
         body: response
     });
 
+});
+
+
+app.get(`${path}/jobs/search`, async function (req, res) {
+    let response = await searchJob();    
+    return res.status(200).json({
+        message: "Search jobs",
+        body: response
+    });
+
+});
+
+app.post(`${path}/jobs/new`, async function (req, res) {
+    let job = req.body;
+    let response = await createJob(job);
+    return res.status(200).json({
+        message: "Save job",
+        body: response
+    });
 });
 
 

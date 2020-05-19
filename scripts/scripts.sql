@@ -1,5 +1,20 @@
 /*
 
+
+CREATE TABLE delivery.job (
+  dbid bigint(20) NOT NULL AUTO_INCREMENT,
+  name varchar(300) NOT NULL,
+  age varchar(10) NOT NULL,  
+  code varchar(10) DEFAULT NULL,
+  whatsapp bigint(20) DEFAULT NULL,
+  description varchar(1200) DEFAULT NULL,
+  car tinyint(1) DEFAULT '0',
+  motorcycle tinyint(1) DEFAULT '0',
+  other tinyint(1) DEFAULT '0',
+  observations varchar(300),
+  PRIMARY KEY (dbid)
+);
+
 CREATE TABLE delivery.value_list (
   dbid bigint(20) NOT NULL AUTO_INCREMENT,
   discriminator varchar(100) NOT NULL,

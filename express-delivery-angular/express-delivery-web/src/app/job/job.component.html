@@ -1,0 +1,165 @@
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "pacman" [fullScreen] = "true">
+  <p style="color: white" > Cargando... </p>
+</ngx-spinner>
+
+<main>
+  
+  <div class="slider-area slider-bg "><br>
+    <div class="single-slider d-flex align-items-center slider-height3 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center pt-50">
+
+                        <div class="slider-btns">
+                          <a data-animation="fadeInLeft" data-delay="1s" routerLink="/home" class="btn radius-btn">Regresar</a>
+                        </div><br>    
+                      
+                        <h2>Listado de servicios</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+  </div>    
+
+    <div class="container"><br>
+      <h6>Estas sin empleo?</h6>
+      <p style="font-size: 10px;">
+         Te quedaste sin empleo, pero tienes vehículo de 2 o 4 ruedas.
+        Crea un perfil con el cuál las personas se comuniquen contigo, tu podrías ayudar a
+        aquellos comercios que no cuentan con servicio a domicilio y podrias generar ingresos para ti.
+      </p>       
+    </div>
+
+    <div class="slider-btns" style="margin-top:13px; margin-left:5px; ">
+      <a data-animation="fadeInLeft" data-delay="1s" (click)="newJob()" class="btn radius-btn">Nuevo</a>
+    </div>  
+
+   <div class="container" *ngIf='viewForm'>
+
+      <form [formGroup]="formJob" novalidate (keydown.enter)="$event.preventDefault()">
+
+      <div class="mt-10">
+         <input type="text" formControlName="name"  placeholder="Escriba un nombre y un apellido"
+           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Escriba un nombre y un apellido'" required
+           class="single-input">
+       </div>       
+       
+       <div class="mt-10">
+         <input type="number" formControlName="age"  placeholder="Cual es su edad?"
+           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Cual es su edad?'" required
+           class="single-input">
+       </div>       
+
+       <div class="mt-10">
+         <span style="color: grey;">Selecciona tu país:</span>
+         <select class="form-control" formControlName="code">
+           <option  *ngFor="let item of listFlags" [value]="item.id">{{item.displayText}} ({{item.id}})</option>
+       </select>
+ 
+       </div>
+ 
+       <div class="mt-10">
+         <input type="text" formControlName="whatsapp"  placeholder="WhatsApp / número de teléfono"
+           onfocus="this.placeholder = ''" onblur="this.placeholder = 'WhatsApp / número de teléfono'" required
+           class="single-input">
+       </div>       
+       
+       <div class="mt-10">
+         <textarea formControlName="description"  class="single-textarea" placeholder="Escriba una breve descripcion para que lo conozcan." onfocus="this.placeholder = ''"
+           onblur="this.placeholder = 'Escriba una breve descripcion para que lo conozcan'" required></textarea>
+       </div>
+       
+       
+       <div class="mt-10 switch-wrap d-flex justify-content-between">
+         <p>Posee vehiculo? </p>
+         <div class="primary-checkbox" >
+           <input type="checkbox" id="default-checkbox-car" formControlName="car">
+           <label for="default-checkbox-car"></label>
+         </div>
+       </div>  
+
+       <div class="mt-10 switch-wrap d-flex justify-content-between">
+         <p>Posee motocicleta? </p>
+         <div class="primary-checkbox" >
+           <input type="checkbox" id="default-checkbox-moto" formControlName="motorcycle">
+           <label for="default-checkbox-moto"></label>
+         </div>
+       </div>  
+
+       <div class="mt-10 switch-wrap d-flex justify-content-between">
+         <p>Otros: </p>
+         <div class="primary-checkbox" >
+           <input type="checkbox" id="default-checkbox-other" formControlName="other">
+           <label for="default-checkbox-other"></label>
+         </div>
+       </div>         
+
+       <div class="mt-10">
+         <input type="text" formControlName="observations"  placeholder="Especifique"
+           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Especifique'" required
+           class="single-input">
+       </div>              
+       <div class="slider-btns" style="margin-top:13px; margin-left:5px; ">
+         <a data-animation="fadeInLeft" data-delay="1s" (click)="saveJob()" class="btn radius-btn">Guardar</a>
+       </div>      
+
+      </form>
+
+   </div>
+
+  <div class="container-fluid">
+    <div class="comments-area">
+
+        <h4>Listado de personas</h4>
+        <div class="comment-list" *ngFor='let job of listJobs'>
+           <div class="single-comment justify-content-between d-flex">
+              <div class="user justify-content-between d-flex">
+                 <div class="thumb">
+                    <img src="assets/img/store/restaurant.svg" alt="">
+                 </div>
+                 <div class="desc">
+                    <p class="comment">
+                       {{job.description}}
+                    </p>
+
+                    <p class="comment">
+                      Vehículo:
+                      <span *ngIf='job.car == 1'><img style="height: 10px;" alt='shop' src='assets/img/store/ok.svg'></span>
+                      <span *ngIf='job.car != 1'><img style="height: 10px;" alt='shop' src='assets/img/store/cancel.svg'></span>                                                                
+                    </p>
+
+                    <p class="comment">
+                      Motocicleta:
+                      <span *ngIf='job.motorcycle == 1'><img style="height: 10px;" alt='shop' src='assets/img/store/ok.svg'></span>
+                      <span *ngIf='job.motorcycle != 1'><img style="height: 10px;" alt='shop' src='assets/img/store/cancel.svg'></span>                                                                
+                    </p>
+                    
+                    <p class="comment">
+                      Otros:
+                      <span *ngIf='job.other == 1'><img style="height: 10px;" alt='shop' src='assets/img/store/ok.svg'></span>
+                      <span *ngIf='job.other != 1'><img style="height: 10px;" alt='shop' src='assets/img/store/cancel.svg'></span>                                                                
+                    </p>
+                    
+                    <div class="d-flex justify-content-between">
+                       <div class="d-flex align-items-center">
+                          <h5>
+                             <a href="#">{{job.name}}</a>
+                          </h5>
+                       </div>
+                       <div class="reply-btn">
+                          <a target="_blank" [href]=getSanitizer(getUrlWhatsApp(job)) class="btn-reply text-uppercase">Contactar</a>
+                          <a (click)="copyText(job.whatsapp)" value="click to copy" class="btn-reply text-uppercase">Copiar número</a>                          
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+    
+  </div>
+
+</main>

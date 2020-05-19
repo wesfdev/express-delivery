@@ -1,0 +1,70 @@
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "pacman" [fullScreen] = "true">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner>
+
+<main>
+  
+  <div class="slider-area slider-bg "><br>
+    <div class="single-slider d-flex align-items-center slider-height3 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center pt-50">
+                      <div class="slider-btns">
+                        <a data-animation="fadeInLeft" data-delay="1s" routerLink="/shop" class="btn radius-btn">Regresar</a>
+                      </div><br>                                            
+                        <h2>Por categorías</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+  </div>
+
+  <div class="container" *ngIf="shops.length < 1">
+    Ups, al parecer aún no hay comercios registrados, quieres ser el primero en registrar un comercio.
+    <div class="slider-btns"><br>
+      <a data-animation="fadeInLeft" data-delay="1s" routerLink="/commerce" class="btn radius-btn">Nuevo comercio</a>
+    </div><br>        
+  </div>
+
+  <div class="container-fluid"><br>
+    <!--div class="col-xl-8">
+      <form action="#" class="search-box">
+          <div class="input-form">
+              <input type="text" placeholder="Busca el comercio aquí">
+          </div>
+          <div class="search-form">
+              <a href="#">Buscar</a>
+          </div>	
+      </form>	
+    </div-->
+    
+    <section class="blog_area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar">
+
+                        <article class="blog_item" *ngFor='let s of shops' [routerLink]="['/shop-detail/' + s.dbid]">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" style="height: 150px;" src={{src}}{{s.image}} alt="">
+                                <a class="blog_item_date">
+                                    <h3>{{s.name}}</h3>
+                                </a>
+                            </div>
+    
+                            <div class="blog_details">
+                                <img class="card-img rounded-0" style="height: 35px;" src='assets/img/store/click.svg'>                                                                                                          
+                                <p>{{s.description}}</p>
+                            </div>
+                        </article>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+  </div>
+</main>

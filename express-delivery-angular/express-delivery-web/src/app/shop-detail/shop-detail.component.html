@@ -1,0 +1,97 @@
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "pacman" [fullScreen] = "true">
+  <p style="color: white" > Cargando... </p>
+</ngx-spinner>
+
+<main>
+  
+  <div class="slider-area slider-bg "><br>
+    <div class="single-slider d-flex align-items-center slider-height3 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center pt-50">
+                        <div class="slider-btns">
+                          <a data-animation="fadeInLeft" data-delay="1s" routerLink="/shop" class="btn radius-btn">Regresar</a>
+                        </div><br>                      
+                        <h2>Detalle</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+  </div>
+
+  <section class="blog_area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+                  
+                    <article class="blog_item">
+                        <div class="blog_item_img">
+                            <img class="card-img rounded-0" style="height: 200px;" [src]=getSanitizer(image) alt="" style="height: 200px; width:200px;">
+                            <a class="blog_item_date">
+                                <h3>{{result.shop.name}}</h3>
+                            </a>
+                        </div>
+  
+                        <div class="blog_details">
+                            <p>{{result.shop.description}}</p>
+
+                            <br><span><strong>Formas de pago:</strong></span>
+                            <ul class="blog-info-link">
+                              <li *ngFor='let pm of result.paymentMethods'>
+                                <a> 
+                                  <img style="height: 20px;" alt='shop' src={{src}}{{pm.name}}{{ext}}>
+                                  {{pm.description}}
+                                </a>
+                              </li>
+                            </ul><br>
+
+                            <ul class="blog-info-link">
+                              <li>
+                                <a>
+                                  <img style="height: 20px;" alt='shop' src='assets/img/store/motocycle.svg'>  
+                                  Servicio a domicilio: 
+                                  <span *ngIf='result.shop.delivery == 1'><img style="height: 20px;" alt='shop' src='assets/img/store/ok.svg'></span>
+                                  <span *ngIf='result.shop.delivery != 1'><img style="height: 20px;" alt='shop' src='assets/img/store/cancel.svg'></span>                                          
+                                </a>
+                              </li>                               
+                            </ul><br>
+
+                            <span><strong>Formas de comunicación:</strong></span><br>
+                            <span> Haz clic en las siguientes opciones para comunicarte con el comercio: </span><br><br>
+                            <ul class="blog-info-link">
+                                <li><a target="_blank" [href]=getSanitizer(whatsapp)> <img style="height: 20px;" alt='shop' src='assets/img/store/whatsapp.svg'> WhatsApp</a></li>
+                                <li><a target="_blank" [href]=getSanitizer(messenger)><img style="height: 20px;" alt='shop' src='assets/img/store/messenger-2.svg'>  Messenger</a></li>                                      
+                                <li><a target="_blank" [href]=result.shop.facebook><img style="height: 20px;" alt='shop' src='assets/img/store/fb.svg'>  Facebook</a></li>                                                                                                                 
+                            </ul>
+
+                            
+                          </div>
+                          <div>
+                            <br>
+                            <span>
+                              <img style="height: 20px;" alt='shop' src='assets/img/store/location.svg'> 
+                              <strong>Ubicacion:</strong>
+                            </span><br><br>
+                            
+                            <a target="_blank" [href]=getSanitizer(direction) class="genric-btn primary radius">
+                              <img style="height: 20px;" alt='shop' src='assets/img/store/category.svg'>Ir a Google Maps
+                            </a><br><br>
+
+
+                            <div id="mapByCity" class="tabcontent" style="width: 100%; height:600px;"></div>
+                          </div>
+                        
+                    </article>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </section> 
+
+</main>
+

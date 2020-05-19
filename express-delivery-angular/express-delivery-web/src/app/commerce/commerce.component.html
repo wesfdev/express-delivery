@@ -1,0 +1,123 @@
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "pacman" [fullScreen] = "true">
+  <p style="color: white" > Cargando... </p>
+</ngx-spinner>
+
+<main>
+
+  <div class="slider-area slider-bg "><br>
+    <div class="single-slider d-flex align-items-center slider-height3">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center pt-50">
+                      <div class="slider-btns">
+                        <a data-animation="fadeInLeft" data-delay="1s" routerLink="/shop" class="btn radius-btn">Ir de compras</a>
+                      </div><br>                                            
+                        <h2>Nuevo comercio</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+  </div>
+
+  <div class="container">
+      
+    <form [formGroup]="formCommerce" novalidate (keydown.enter)="$event.preventDefault()">
+      <br> <p><strong>Llene los siguientes datos</strong></p><br>
+      <div class="mt-10">
+        <input type="text" formControlName="name"  placeholder="Nombre del comercio"
+          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nombre del comercio'" required
+          class="single-input">
+      </div>
+      
+      <div class="mt-10">
+        <span style="color: grey;">Selecciona una categoría:</span>
+        <select class="form-control" formControlName="category" placeholder='Selecciona una categoria'>
+          <option *ngFor="let item of listCategories" [value]="item.dbid">{{item.name}}</option>
+        </select>  
+      </div>
+
+
+      <div class="mt-10">
+        <textarea formControlName="description"  class="single-textarea" placeholder="Descripción del comercio" onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'Descripción del comercio'" required></textarea>
+      </div>
+
+
+      <div class="mt-10">
+        <span style="color: grey;">Selecciona tu país:</span>
+        <select class="form-control" formControlName="code">
+          <option  *ngFor="let item of listFlags" [value]="item.id">{{item.displayText}} ({{item.id}})</option>
+      </select>
+
+      </div>
+
+      <div class="mt-10">
+        <input type="text" formControlName="whatsapp"  placeholder="WhatsApp"
+          onfocus="this.placeholder = ''" onblur="this.placeholder = 'WhatsApp'" required
+          class="single-input">
+      </div>
+
+      <div class="mt-10">
+        <input type="text" formControlName="facebook"  placeholder="Ingrese url de facebook"
+          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese url de facebook'" required
+          class="single-input">
+      </div>
+
+      <div class="mt-10 switch-wrap d-flex justify-content-between">
+        <p>Servicio a domicilio?</p>
+        <div class="primary-switch">
+          <input type="checkbox" id="default-switch" formControlName="delivery">
+          <label for="default-switch"></label>
+        </div>
+      </div>      
+      <span style="color: grey; font-size:10px">Si no tiene servicio a domicilio, puede visitar la sección de 
+        <strong>Ofrecer mis servicios</strong>, en donde alguna persona sin empleo podría hacer la encomienda
+        y asi ayudarse mutuamente.
+      </span><br><br>
+      
+      <span style="color: grey;">Formas de pago:</span>
+      <div class="mt-10 switch-wrap d-flex justify-content-between" *ngFor="let pm of listMethodPayment">
+        <p>{{pm.description}} </p>
+        <div class="primary-checkbox" >
+          <input type="checkbox" id="default-checkbox-{{pm.name}}" (change)='changeMethod($event, pm)'>
+          <label for="default-checkbox-{{pm.name}}"></label>
+        </div>
+      </div>    
+      
+      <div class="mt-10">
+        <span style="color: grey;">Selecciona una imagen para el comercio:</span>
+         <input type="file" formControlName="picture"  placeholder="Selecciona una imagen para el comercio"
+          (change)="handleFileInput($event.target.files)"
+          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Selecciona una imagen para el comercio'" required
+          class="single-input">
+      </div>
+      
+      <div class="mt-10">
+        <span style="color: grey;">Búsque su ubicación o comercio:</span><br>        
+        <span style="color: grey; font-size:10px">Ejemplo: Parque central Santa Elena Barillas</span><br>
+        <span style="color: grey; font-size:10px">Ejemplo 2: Guatemala City</span>                
+        <input class="input" type="text" [(ngModel)]="autocompleteInput" [ngModelOptions]="{standalone: true}"
+        #addresstext style="padding: 12px 20px; border: 1px solid #ccc; width: 350px"> 
+        <div id="mapByCity" class="tabcontent" style="width: 100%; height:320px;"></div>
+      </div>
+
+      <!--div class="button-group-area mt-40">
+        <button class="genric-btn default radius" (click)='saveCommerce($event)'>
+          <img style="height: 20px;" alt='shop' src='assets/img/store/ok.svg'>  
+          Guardar
+        </button><br><br><br>
+      </div-->
+
+      <div class="slider-btns" >
+        <button (click)='saveCommerce($event)' data-animation="fadeInLeft" data-delay="1s"  class="btn radius-btn">Guardar</button>
+      </div><br><br><br>       
+
+    </form>
+
+
+  </div>
+
+</main>

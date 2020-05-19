@@ -37,3 +37,12 @@ Following the COVID-19 outbreak, local small businesses and suppliers are going 
 + Start the server: `npm start `
 + Open [localhost:3000](localhost:3000).
 
+## Web (Angular)
++ Move your terminal to where your files live: `express-delivery-angular/express-delivery-web`
++ Execute: `npm install`
++ Start the server: `ng serve `
++ Open [localhost:4200](localhost:4200).
+
+## Google Maps Key
++ In file index.html from express-delivery-web add your key to api google maps.
+

@@ -4,6 +4,7 @@ const version = 'v1'
 const resource = 'delivery'
 const path = `/${version}/${resource}`
 
+
 const {
     getShops,
     getShop,
@@ -13,8 +14,33 @@ const {
     createShop,
     updateShop,
     searchJob,
-    createJob
+    createJob,
+    getShopByToken,
+    createFeedBack,
+    visitShop,
+    clickShop,
+    visitCategory,
+    visitMenu    
 } = require('../services/deliveryService')
+
+
+app.post(path, async function (req, res) {
+    let shop = req.body;
+    let response = await createShop(shop);
+    return res.status(200).json({
+        message: "Save shop",
+        body: response
+    });
+});
+
+app.put(path, async function (req, res) {
+    let shop = req.body;
+    let response = await updateShop(shop);
+    return res.status(200).json({
+        message: "update shop",
+        body: response
+    });
+});
 
 app.get(`${path}`, async function (req, res) {
     let response = await getShops();
@@ -30,6 +56,17 @@ app.get(`${path}`, async function (req, res) {
 app.get(`${path}/:dbid`, async function (req, res) {
     let dbid = req.params.dbid;
     let response = await getShop(dbid);
+    
+    return res.status(200).json({
+        message: "Get shop by dbid",
+        body: response
+    });
+
+});
+
+app.get(`${path}/token/:token`, async function (req, res) {
+    let token = req.params.token;
+    let response = await getShopByToken(token);
     
     return res.status(200).json({
         message: "Get shop by dbid",
@@ -90,23 +127,51 @@ app.post(`${path}/jobs/new`, async function (req, res) {
     });
 });
 
-
-app.post(path, async function (req, res) {
-    let shop = req.body;
-    let response = await createShop(shop);
+app.post(`${path}/feedback/new`, async function (req, res) {
+    let feedback = req.body;
+    let response = await createFeedBack(feedback);
     return res.status(200).json({
-        message: "Save shop",
+        message: "Save feedback",
         body: response
     });
 });
 
-app.put(path, async function (req, res) {
-    let shop = req.body;
-    let response = await updateShop(shop);
+app.post(`${path}/visit/new`, async function (req, res) {
+    let visit = req.body;
+    let response = await visitShop(visit);
     return res.status(200).json({
-        message: "update shop",
+        message: "Save visit",
         body: response
     });
 });
+
+app.post(`${path}/check/new`, async function (req, res) {
+    let clic = req.body;
+    let response = await clickShop(clic);
+    return res.status(200).json({
+        message: "Save",
+        body: response
+    });
+});
+
+app.post(`${path}/menu/new`, async function (req, res) {
+    let body = req.body;
+    let response = await visitMenu(body);
+    return res.status(200).json({
+        message: "Save",
+        body: response
+    });
+});
+
+
+app.post(`${path}/category/new`, async function (req, res) {
+    let body = req.body;
+    let response = await visitCategory(body);
+    return res.status(200).json({
+        message: "Save",
+        body: response
+    });
+});
+
 
 module.exports = app;

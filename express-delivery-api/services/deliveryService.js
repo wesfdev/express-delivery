@@ -23,6 +23,18 @@ let bool = (value) =>{
     }
 }
 
+let showTime = () => {
+    let timeNow = new Date();
+    let hours   = timeNow.getHours();
+    let minutes = timeNow.getMinutes();
+    let seconds = timeNow.getSeconds();
+    let timeString = "" + hours;
+    timeString  += ((minutes < 10) ? ":0" : ":") + minutes;
+    timeString  += ((seconds < 10) ? ":0" : ":") + seconds;
+    timeString = timeNow.toISOString().slice(0,10) + ' '+ timeString;
+    return timeString;
+  }
+
 let getShops = async () => {
     let db = connection.promise()
     //let sql = `${base_query}`;
@@ -55,6 +67,19 @@ let getShopByDbid = async (dbid) => {
 
     let [rows]  = await db.execute(sql, [ dbid ]);
     return rows;
+}
+
+let getShopByToken = async (token) => {
+    let db = connection.promise()
+    let sql = `${base_query} where token = ?`;
+    let [rows]  = await db.execute(sql, [ token ]);
+
+    if(rows.length > 0){
+        return getShop(rows[0].dbid)
+    }else{
+        return {}        
+    }
+
 }
 
 let getPaymentMethodsByShop = async (dbid) => {
@@ -110,20 +135,21 @@ let searchShop = async (value) => {
 let createShop = async (req) => {
     console.log('createShop')
 
+    let token = uuid.v4();
     let status = 19;
     let { lat, lng } = req.location.geometry;
 
     let sql = `
         INSERT INTO delivery.shop
-        (name, category, description, whatsapp, facebook, messenger, webpage, lat, lng, delivery, code, status)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        (name, category, description, whatsapp, facebook, messenger, webpage, lat, lng, delivery, code, status, token, creation_date)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     `;
 
     let shop = await insert(
             sql, 
             [
                 req.name, num(req.category), req.description, num(req.whatsapp), req.facebook, getUserFacebook(req.facebook),
-                req.webpage, lat, lng, bool(req.delivery), req.code, status
+                req.webpage, lat, lng, bool(req.delivery), req.code, status, token, showTime()
             ]
         );
 
@@ -178,6 +204,60 @@ let createJob = async (req) => {
 
 }
 
+let createFeedBack = async (req)=>{
+    let sql = `
+            INSERT INTO delivery.feed_back
+            (name, email, observations, creation_date)
+            VALUES(?, ?, ?, ?);
+    `;
+
+    await insert(sql, [ req.name, req.email, req.observations, showTime()]);
+}
+
+let visitShop = async (req)=>{
+    let sql = `
+        INSERT INTO delivery.visit_shop
+        (creation_date, shop)
+        VALUES(?, ?);                
+    `;
+
+    await insert(sql, [ showTime(), req.dbid]);
+
+}
+
+
+let clickShop = async (req)=>{
+    let sql = `
+        INSERT INTO delivery.click_shop
+        (clic_type, creation_date, shop)
+        VALUES(?, ?, ?);    
+    `;
+
+    await insert(sql, [req.type, showTime(), req.dbid]);
+
+}
+
+
+let visitCategory = async (req)=>{
+    let sql = `
+        INSERT INTO delivery.click_category
+        (category, creation_date)
+        VALUES(?, ?);
+    `;
+
+    await insert(sql, [req.category, showTime()]);
+}
+
+let visitMenu = async (req)=>{
+    let sql = `
+        INSERT INTO delivery.click_menu
+        (menu, creation_date)
+        VALUES(?, ?);    
+    `;
+
+    await insert(sql, [req.menu, showTime()]);
+}
+
 
 module.exports = {
     getShops,
@@ -188,5 +268,11 @@ module.exports = {
     createShop,
     updateShop,
     searchJob,
-    createJob
+    createJob,
+    getShopByToken,
+    createFeedBack,
+    visitShop,
+    clickShop,
+    visitCategory,
+    visitMenu
 }

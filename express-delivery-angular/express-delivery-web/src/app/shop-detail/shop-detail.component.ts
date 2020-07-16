@@ -18,13 +18,14 @@ const maxI = 50, rad = 24, opac = .6;
   styleUrls: ['./shop-detail.component.css']
 })
 export class ShopDetailComponent implements OnInit {
-  public id: any;
+  public token: any;
   public src:string = 'assets/img/store/';
   public ext:string = '.svg';
   public image:any;
   public whatsapp:any;
   public messenger:any;
   public direction:any;
+  public listType:any = [];
   public result:any = {
     shop:{},
     pictures:[],
@@ -33,17 +34,23 @@ export class ShopDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, public api: RestService, 
     private sanitizer: DomSanitizer, private spinner: NgxSpinnerService) {
-    this.id = this.route.snapshot.paramMap.get('dbid');
-    this.getShop(this.id);
+    this.token = this.route.snapshot.paramMap.get('dbid');
+    this.getShop(this.token);
   }
 
   ngOnInit() {
   }
 
-  async getShop(dbid){
-    this.spinner.show();    
-    let request =  await this.api.gethttp(`/v1/delivery/${dbid}`) .toPromise(); 
+  async getShop(token){
+    this.spinner.show();   
+
+    let request =  await this.api.gethttp(`/v1/delivery/token/${token}`) .toPromise(); 
     this.result = request.body;
+    await this.api.posthttp('/v1/delivery/visit/new', { dbid: this.result.shop.dbid } ).toPromise();    
+
+    request = await this.api.gethttp('/v1/resources/discriminator/ClickType').toPromise();
+    this.listType = request.body;
+
     this.image = this.getUrl(this.result.pictures);
     this.whatsapp = this.getUrlWhatsApp(this.result.shop)
     this.messenger = this.getUrlMessenger(this.result.shop)
@@ -52,17 +59,29 @@ export class ShopDetailComponent implements OnInit {
     this.spinner.hide();
   }
 
+
+  async saveClick(type){
+    let result = this.listType.filter(e => e.name ==type );
+    if(result.length > 0){
+      await this.api.posthttp('/v1/delivery/check/new', { dbid: this.result.shop.dbid, type: result[0].dbid } ).toPromise();          
+    }
+  }
+
   getSanitizer(url){
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
+  getCell(shop){
+    return 'tel:'+shop.code + shop.whatsapp;
+  }
+
   getUrlWhatsApp(shop){
     let wa = this.getWhatsApp(shop.code, shop.whatsapp);
-    return `https://wa.me/${wa}?text=Buenos%20días%2c%20estoy%20interesado%20en%20adquirir%20sus%20productos.`;
+    return `https://wa.me/${wa}?text=(Lo%20ví%20a%20través%20de%20delivery-gt.com)%20Que%20tal%2c%20mucho%20gusto.`;
   }
 
   getUrlMessenger(shop){
-    let msg = this.getUserFacebook(shop.facebook);
+    let msg = shop.messenger;//this.getUserFacebook(shop.facebook);
     return `http://m.me/${msg}`;
   }
 

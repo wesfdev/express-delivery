@@ -63,14 +63,15 @@
                             <span><strong>Formas de comunicación:</strong></span><br>
                             <span> Haz clic en las siguientes opciones para comunicarte con el comercio: </span><br><br>
                             <ul class="blog-info-link">
-                                <li><a target="_blank" [href]=getSanitizer(whatsapp)> <img style="height: 20px;" alt='shop' src='assets/img/store/whatsapp.svg'> WhatsApp</a></li>
-                                <li><a target="_blank" [href]=getSanitizer(messenger)><img style="height: 20px;" alt='shop' src='assets/img/store/messenger-2.svg'>  Messenger</a></li>                                      
-                                <li><a target="_blank" [href]=result.shop.facebook><img style="height: 20px;" alt='shop' src='assets/img/store/fb.svg'>  Facebook</a></li>                                                                                                                 
+                                <li *ngIf='result.shop.whatsapp' ><a target="_blank" (mousedown)="saveClick('whatsapp')" [href]=getSanitizer(whatsapp)> <img style="height: 20px;" alt='shop' src='assets/img/store/whatsapp.svg'> WhatsApp</a></li>
+                                <li *ngIf='result.shop.facebook'><a target="_blank" (mousedown)="saveClick('facebook')" [href]=result.shop.facebook><img style="height: 20px;" alt='shop' src='assets/img/store/fb.svg'>  Facebook</a></li>                                                                                                                 
+                                <li *ngIf='result.shop.messenger'><a target="_blank" (mousedown)="saveClick('messenger')" [href]=getSanitizer(messenger)><img style="height: 20px;" alt='shop' src='assets/img/store/messenger-2.svg'>  Messenger</a></li>                                                                      
                             </ul>
-
+                            <br><span *ngIf='result.shop.whatsapp' style="font-size: 10px;"><strong>* </strong> Si el whatsapp no es válido, intente llamar.</span>
                             
                           </div>
                           <div>
+
                             <br>
                             <span>
                               <img style="height: 20px;" alt='shop' src='assets/img/store/location.svg'> 
@@ -95,3 +96,6 @@
 
 </main>
 
+<a *ngIf='result.shop.whatsapp' target="_blank" (mousedown)="saveClick('whatsapp')" [href]=getSanitizer(whatsapp)  class="whatsapp" target="_blank"> <img class="whatsapp-icon" style="height: 30px;" alt='shop' src='assets/img/store/whatsapp.svg'></a>                              
+<a *ngIf='result.shop.messenger' target="_blank" (mousedown)="saveClick('messenger')" [href]=getSanitizer(messenger)  class="messenger" target="_blank"> <img class="messenger-icon" style="height: 30px;" alt='shop' src='assets/img/store/messenger.svg'></a>                              
+<a *ngIf='result.shop.whatsapp' target="_blank" (mousedown)="saveClick('call')" [href]=getCell(result.shop)  class="call" target="_blank"> <img class="call-icon" style="height: 30px;" alt='shop' src='assets/img/store/call.svg'></a>                              

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef} from '@angular/core';
 import { RestService } from '../rest.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -16,6 +16,9 @@ export class ShopComponent implements OnInit {
   public shops:any = [];
   public src:string = 'assets/img/store/';
   public searchValue:string;
+  public viewSearch:boolean = false;
+  @ViewChild('searchFocus') searchFocus:ElementRef;
+
 
   constructor(public api: RestService, private spinner: NgxSpinnerService) { 
     this.getCategories();
@@ -23,6 +26,17 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  enableSearch(){
+    this.viewSearch = !this.viewSearch;    
+    setTimeout(() => this.searchFocus.nativeElement.focus());
+
+    
+  }
+
+  async saveMenu(menu){
+    await this.api.posthttp('/v1/delivery/menu/new', { menu } ).toPromise();    
   }
 
   async search(){
@@ -61,7 +75,7 @@ export class ShopComponent implements OnInit {
 
   getUrlWhatsApp(shop){
     let wa = this.getWhatsApp(shop.code, shop.whatsapp);
-    return `https://wa.me/${wa}?text=Buenos%20días%2c%20estoy%20interesado%20en%20adquirir%20sus%20productos.`;
+    return `https://wa.me/${wa}?text=(Lo%20ví%20a%20través%20de%20delivery-gt.com)%20Que%20tal%2c%20mucho%20gusto.`;
   }
 
   initMap(result) {
@@ -94,8 +108,9 @@ export class ShopComponent implements OnInit {
             let whatsapp = this.getUrlWhatsApp(location);
             let contentString = `
               <div>
-                <b>${location.name}</b><br/>
-                <a style:"color:#635c5c !important;" target="_blank" href='${whatsapp}'> <img style="height: 20px;" alt='shop' src='assets/img/store/whatsapp.svg'> WhatsApp</a>
+                <b>${location.name}</b><br><br>
+                <a href='#/shop-detail/${location.token}' ><img style="height: 20px;" alt='shop' src='assets/img/store/category.svg'><b>Ir a detalle de comercio</b></a><br><br>
+                <a style:"color:#635c5c !important;" target="_blank" href='${whatsapp}'> <img style="height: 20px;" alt='shop' src='assets/img/store/whatsapp.svg'> <b>Ir a WhatsApp</b></a><br>
                 <br/>Descripción: <b>${location.description}</b>
               </div>`;
 

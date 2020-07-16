@@ -312,7 +312,7 @@ hr {
 }
 
 .section-padding {
-	padding-top: 65px;
+	padding-top: 10px;
 	padding-bottom: 100px
 }
 
@@ -3360,7 +3360,7 @@ form.search-box .input-form {
 }
 
 form.search-box .input-form input {
-	height: 60px;
+	height: 40px;
 	width: 100%;
 	color: #777777;
 	font-size: 18px;
@@ -3372,7 +3372,7 @@ form.search-box .input-form input {
 
 @media (max-width: 575px) {
 	form.search-box .input-form input {
-		margin-bottom: 20px
+		margin-bottom: 2px
 	}
 }
 
@@ -3480,21 +3480,21 @@ form.search-box .search-form {
 
 form.search-box .search-form a {
 	width: 100%;
-	height: 60px;
+	height: 40px;
 	background: #eb566c;
-	font-size: 20px;
+	font-size: 10px;
 	line-height: 1;
 	text-align: center;
 	color: #fff;
 	display: block;
-	padding: 15px;
+	padding: 5px;
 	border-radius: 0px;
 	text-transform: uppercase;
 	font-family: "Oswald", sans-serif;
 	letter-spacing: 0.1em;
 	line-height: 1.2;
 	line-height: 31px;
-	font-size: 14px
+	font-size: 13px
 }
 
 .domain-list {

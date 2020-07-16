@@ -160,6 +160,10 @@ export class CommerceComponent implements OnInit, AfterViewInit {
         errors =errors + '<span>Agregue un nombre para su negocio. </span><br/> <br/>';
     }
 
+    if(!shop.category){
+      errors =errors + '<span>No ha seleccionado una categoria. </span><br/> <br/>';
+    }
+
     if(!shop.whatsapp.trim()){
         errors =errors + '<span>Agregue un numero de teléfono(WhatsApp) para que las personas se puedan comunicar con usted. </span><br/> <br/>';
     }

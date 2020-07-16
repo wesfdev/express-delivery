@@ -7,12 +7,14 @@ import { ShopComponent } from './shop/shop.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ShopDetailComponent } from './shop-detail/shop-detail.component';
 import { ShopCategoryComponent } from './shop-category/shop-category.component';
+import { FeedBackComponent } from './feed-back/feed-back.component';
 
 const routes: Routes = [
   { path: 'home', component: MainComponent } ,  
   { path: 'jobs', component: JobComponent } ,
   { path: 'commerce', component: CommerceComponent  } ,
   { path: 'shop', component: ShopComponent },
+  { path: 'feed-back', component: FeedBackComponent },  
   { path: 'shop-detail/:dbid', component: ShopDetailComponent },  
   { path: 'shop-category/:dbid', component: ShopCategoryComponent },  
   { path: '',   redirectTo: '/home', pathMatch: 'full' }, 

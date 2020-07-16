@@ -14,7 +14,7 @@
                       <div class="slider-btns">
                         <a data-animation="fadeInLeft" data-delay="1s" routerLink="/home" class="btn radius-btn">Regresar</a>
                       </div><br>                          
-                        <h2>Mercado en línea</h2>
+                        <h4 style="color: white;">Mercado en línea</h4>
                     </div>
                 </div>
             </div>
@@ -24,24 +24,46 @@
 
 <div class="container-fluid"><br>
 
+  <span  style="font-size: 10px;">
+    Si deseas buscar por ubicación puedes consultar la sección de <strong>Mapa</strong>
+  </span><br><br>
 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="true"><strong style="color:#495057">Todos</strong></a>
+      <a class="nav-link active" id="profile-tab" (mousedown)="saveMenu('category')"  data-toggle="tab" href="#category" role="tab" aria-controls="profile" aria-selected="true"><strong style="color:#495057">Por categoría</strong></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#category" role="tab" aria-controls="profile" aria-selected="false"><strong style="color:#495057">Por categoría</strong></a>
+      <a class="nav-link " id="home-tab" (mousedown)="saveMenu('all')" data-toggle="tab" href="#all" role="tab" aria-controls="home" aria-selected="false"><strong style="color:#495057">Ver todos</strong></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#maps" role="tab" aria-controls="contact" aria-selected="false"><strong style="color:#495057">Mapa</strong></a>
+      <a class="nav-link" id="contact-tab" (mousedown)="saveMenu('map')" data-toggle="tab" href="#maps" role="tab" aria-controls="contact" aria-selected="false"><strong style="color:#495057">Mapa</strong></a>
     </li>
   </ul>
 
 
   <div class="tab-content" id="myTabContent">
 
-    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab"><br>
-    
+    <div class="tab-pane fade show active" id="category" role="tabpanel" aria-labelledby="category-tab"><br>
+    <div class="col-lg-8">
+        <aside class="single_sidebar_widget post_category_widget">
+          <h4 class="widget_title">Seleccione una categoría</h4><br>
+          <ul class="list cat-list">
+            <li *ngFor='let c of categories'>
+                <a [routerLink]="['/shop-category/' + c.dbid]"class="d-flex">
+                  <img style="height: 35px;" alt='shop' src={{src}}{{c.description}}>  
+                  <p> {{c.name}}</p>
+                  <!--p>(0)</p-->
+                </a>
+            </li>
+          </ul>
+      </aside>
+
+
+    </div>
+
+    </div>
+
+    <div class="tab-pane fade " id="all" role="tabpanel" aria-labelledby="all-tab"><br>
       <div class="container" *ngIf="shops.length < 1">
         Ups, al parecer aún no hay comercios registrados, quieres ser el primero en registrar un comercio.
         <div class="slider-btns"><br>
@@ -50,9 +72,12 @@
       </div>
 
       <div class="col-xl-8">
-        <form action="#" class="search-box">
+        <button class="btn" (click)='enableSearch()' >Buscar</button>
+        <button class="btn"  (click)='getShops()'>Ver todo</button>   
+        <hr style="height:1px;border-width:0;color:gray;background-color:gray">     
+        <form action="#" class="search-box"  (keydown.enter)="$event.preventDefault()" *ngIf="viewSearch">
             <div class="input-form">
-                <input type="text" placeholder="Busca el comercio aquí"  [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+                <input type="text" placeholder="Busca el comercio aquí"  [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" autofocus #searchFocus>
             </div>
             <div class="search-form" (click)="search()">
                 <a>Buscar</a>
@@ -69,7 +94,7 @@
                   <div class="col-lg-8 mb-5 mb-lg-0">
                       <div class="blog_left_sidebar">
 
-                          <article class="blog_item" *ngFor='let s of shops' [routerLink]="['/shop-detail/' + s.dbid]">
+                          <article class="blog_item" *ngFor='let s of shops' [routerLink]="['/shop-detail/' + s.token]">
                               <div class="blog_item_img">
                                   <img class="card-img rounded-0" style="height: 150px;" src={{src}}{{s.image}} alt="">
                                   <a class="blog_item_date">
@@ -91,25 +116,6 @@
       </section> 
     </div>
 
-    <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab"><br>
-    <div class="col-lg-8">
-        <aside class="single_sidebar_widget post_category_widget">
-          <h4 class="widget_title">Categoría</h4>
-          <ul class="list cat-list">
-            <li *ngFor='let c of categories'>
-                <a [routerLink]="['/shop-category/' + c.dbid]"class="d-flex">
-                  <img style="height: 35px;" alt='shop' src={{src}}{{c.description}}>  
-                  <p> {{c.name}}</p>
-                  <!--p>(0)</p-->
-                </a>
-            </li>
-          </ul>
-      </aside>
-
-
-    </div>
-
-    </div>
     <div class="tab-pane fade" id="maps" role="tabpanel" aria-labelledby="maps-tab">
       <br>
       <img class="card-img rounded-0" style="height: 35px;" src='assets/img/store/click.svg'>       
@@ -121,6 +127,7 @@
       <div id="mapByCity" class="tabcontent" style="width: 100%; height:600px;"></div>
 
     </div>
+
   </div>  
 </div>
 

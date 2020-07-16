@@ -1,0 +1,53 @@
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "pacman" [fullScreen] = "true">
+  <p style="color: white" > Cargando... </p>
+</ngx-spinner>
+
+<main>
+  
+  <div class="slider-area slider-bg "><br>
+    <div class="single-slider d-flex align-items-center slider-height3 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center pt-50">
+                        <div class="slider-btns">
+                          <a data-animation="fadeInLeft" data-delay="1s" routerLink="/shop" class="btn radius-btn">Regresar</a>
+                        </div><br>                      
+                        <h2>Retroalimentación</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+  </div>
+
+  <div class="container">
+    <form [formGroup]="formComment" novalidate (keydown.enter)="$event.preventDefault()" >
+      <br> <p><strong>Tus comentarios o sugerencias ayudan a mejorar el sitio!</strong></p><br>
+
+      <div class="mt-10">
+        <input type="text" formControlName="name"  placeholder="Nombre"
+          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nombre'" required
+          class="single-input">
+      </div>
+
+      <div class="mt-10">
+        <input type="text" formControlName="email"  placeholder="Correo electrónico"
+          onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo electrónico'" required
+          class="single-input">
+      </div>      
+
+      <div class="mt-10">
+        <textarea formControlName="observations"  class="single-textarea" placeholder="Observaciones" onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'Observaciones'" required></textarea>
+      </div>
+
+      <div class="slider-btns" >
+        <button (click)='sendComment()' data-animation="fadeInLeft" data-delay="1s"  class="btn radius-btn">Enviar</button>
+      </div><br>
+      <br>      
+    </form>
+  </div>
+
+</main>

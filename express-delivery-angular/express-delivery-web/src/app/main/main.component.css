@@ -1,0 +1,33 @@
+
+.facebook {
+    position:fixed;
+    width:55px;
+    height:55px;
+    bottom:40px;
+    right:20px;
+    background-color:#194AB2;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    font-size:30px;
+    z-index:100;
+  }
+  
+  .facebook-icon {
+    margin-top:9px;
+  }
+
+
+.share {
+    position:fixed;
+    width:55px;
+    height:55px;
+    bottom:105px;
+    right:20px;
+    background-color: #28395a;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    font-size:30px;
+    z-index:100;
+  }

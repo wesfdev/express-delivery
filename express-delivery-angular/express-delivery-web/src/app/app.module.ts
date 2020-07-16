@@ -21,6 +21,7 @@ import { CommerceComponent } from './commerce/commerce.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ShopDetailComponent } from './shop-detail/shop-detail.component';
 import { ShopCategoryComponent } from './shop-category/shop-category.component';
+import { FeedBackComponent } from './feed-back/feed-back.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ShopCategoryComponent } from './shop-category/shop-category.component';
     CommerceComponent,
     PageNotFoundComponent,
     ShopDetailComponent,
-    ShopCategoryComponent
+    ShopCategoryComponent,
+    FeedBackComponent
   ],
   imports: [
     BrowserModule,

@@ -25,6 +25,7 @@ export class ShopCategoryComponent implements OnInit {
   async getShopsByCategory(category){
     this.spinner.show();
     let request =  await this.api.gethttp(`/v1/delivery/shop/category/${category}`) .toPromise(); 
+    await this.api.posthttp('/v1/delivery/category/new', { category } ).toPromise();    
     this.shops = request.body;
     this.spinner.hide();
   }

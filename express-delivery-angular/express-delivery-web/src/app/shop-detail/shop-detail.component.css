@@ -1,0 +1,54 @@
+.whatsapp {
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:170px;
+    right:25px;
+    background-color:#25d366;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    font-size:30px;
+    z-index:100;
+  }
+  
+  .whatsapp-icon {
+    margin-top:9px;
+  }
+
+  .messenger {
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:105px;
+    right:25px;
+    background-color:#E8E8E8	;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    font-size:30px;
+    z-index:100;
+  }
+  
+  .messenger-icon {
+    margin-top:9px;
+  }
+
+
+  .call {
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:30px;
+    right:25px;
+    background-color:#E8E8E8	;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    font-size:30px;
+    z-index:100;
+  }
+  
+  .call-icon {
+    margin-top:9px;
+  }

@@ -2,8 +2,6 @@
 
 [View Video Demo](https://youtu.be/QlOe68kld4I)
 
-[View Web Site](https://delivery-gt.com)
-
 ## Application
 The goal is to offer alternatives to some of the challenges posed by the coronavirus crisis using technology.
 
